@@ -9,4 +9,6 @@ int main()
     double b;
     cin >> a >> b;
     cout << "Hypothenuse: " << sqrt(a*a + b*b);
+
+    return 0;
 }

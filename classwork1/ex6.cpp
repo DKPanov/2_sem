@@ -21,6 +21,8 @@ int main()
     cin >> n >> m;
     int a = n;
     int b = m;
-    cout << "The greatest common divisor: " << NOD(n, m) << /'n';  //„тобы перейти на новую строку, можно использовать << endl
-    cout << "The smallest common multiple: " << a * b / n;
+    cout << "The greatest common divisor: " << NOD(n, m) << endl;  //„тобы перейти на новую строку, можно использовать << endl
+    cout << "The smallest common multiple: " << a * b / NOD(m, n);
+
+    return 0;
 }

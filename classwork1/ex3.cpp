@@ -12,4 +12,6 @@ int main()
         m = m * i;
     }
     cout << "n! = " << m;
+
+    return 0;
 }

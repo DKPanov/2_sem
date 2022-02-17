@@ -19,4 +19,5 @@ int main()
     }
     cout << "The greatest common divisor: " << n;
 
+    return 0;
 }

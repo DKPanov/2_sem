@@ -29,5 +29,7 @@ int main()
     else if ((a == 0) && (b == 0)) {
         cout << "No solutions: " ;
     }
+
+    return 0;
 }
 

@@ -20,4 +20,6 @@ int main()
         }
     }
     cout << "The smallest common multiple: " << a * b / n;
+
+    return 0;
 }
