@@ -59,9 +59,9 @@ int main() {
   cout << "Введите кол-во дислокаций " << endl;
   cin >> qty;
 
-  for (int i = 1; i <= 10000; i++){
-    //cout << "\n-----------------------------------------\n";
-    //cout << "Опыт " << i << endl;
+  for (int i = 1; i <= 3; i++){
+    cout << "\n-----------------------------------------\n";
+    cout << "Опыт " << i << endl;
 
     int an_array[n][n];
     int shift_ = 0;
@@ -75,7 +75,7 @@ int main() {
 
       int x = RandomNumber(1,n-2, m);
       int y = RandomNumber(1,n-2, mm);
-      //cout << x << y << endl;
+      cout << x<< y << endl;
       m += 11;
       mm += 29;
 
@@ -104,32 +104,32 @@ int main() {
 
 
     }
-    //cout << vec.size() << endl;
-    //PrintArray(n, &an_array[0][0]);
+    cout << vec.size() << endl;
+    PrintArray(n, &an_array[0][0]);
 
-    //cout << "\n-----------------------------------------\n";
+    cout << "\n-----------------------------------------\n";
 
     // Для визуализаии координат дислокаций полученных в результате работы
     // ф-ции RandomNumber на первом этапе
 
-    /*cout << "Начальные координаты дислокаций: " << endl;
+    cout << "Начальные координаты дислокаций: " << endl;
     for (int i = 0; i < vec.size(); i++) {
       cout << "(";
       for (int j = 0; j < 2; j++) {
         cout << vec[i][j];
         if(j == 0) cout << "-";
       }
-      //cout << ") ";
-    }*/
+      cout << ") ";
+    }
 
-    //cout << "\n-----------------------------------------\n";
+    cout << "\n-----------------------------------------\n";
 
     while (1) {
       if (shift_ == 1) {
         iter += iter_;
-        //cout << "Стоп" << endl;
-        //cout << "Количество шагов:" << iter_ << endl;
-        //cout << "Общее количество шагов:" << iter << endl;
+        cout << "Стоп" << endl;
+        cout << "Количество шагов:" << iter_ << endl;
+        cout << "Общее количество шагов:" << iter << endl;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 an_array[i][j] = 0;
@@ -154,27 +154,27 @@ int main() {
                 flag = 1;
                 // Перемещение
                 shift = RandomNumber(0,3, m);
-                //cout << "i=" << i << " j=" << j << " Перемещение ";
+                cout << "i=" << i << " j=" << j << " Перемещение ";
 
                 // вверх
                 if (shift == 0) {
                   an_array[i-1][j] = 2;
-                  //cout << "вверх" << endl;
+                  cout << "вверх" << endl;
                 }
                 // вниз
                 if (shift == 1) {
                   an_array[i+1][j] = 2;
-                  //cout << "вниз" << endl;
+                  cout << "вниз" << endl;
                 }
                 // влево
                 if (shift == 2) {
                   an_array[i][j-1] = 2;
-                  //cout << "влево" << endl;
+                  cout << "влево" << endl;
                 }
                 // вправо
                 if (shift == 3) {
                   an_array[i][j+1] = 2;
-                  //cout << "вправо" << endl;
+                  cout << "вправо" << endl;
                 }
 
                 an_array[i][j] = 0;
@@ -193,16 +193,16 @@ int main() {
         for(int j = 0; j < n; j++)
           if (an_array[i][j] == 2) an_array[i][j] = 1;
 
-      //if (flag == 1) PrintArray(n, &an_array[0][0]);
+      if (flag == 1) PrintArray(n, &an_array[0][0]);
 
 
-      //cout << "\n-----------------------------------------\n";
+      cout << "\n-----------------------------------------\n";
 
       if (shift == 0) shift_ = 1;
 
     }
   }
 
-  cout << "Среднее количество шагов: " << iter*0.0001 << endl;
+  //cout << "Среднее количество шагов: " << iter*0.001 << endl;
   return 0;
 }
