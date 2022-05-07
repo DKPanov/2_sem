@@ -4,29 +4,27 @@
 
 using namespace std;
 
-double mean(double psi[], double pdf[], double const dv, unsigned size) {
+double mean(double G[], double const dv, unsigned size) {
 
-    double psi_[size];
-    double pdf_[size];
+    //G_[] - произведение функций G := psi_ * f_
+    double G_[size];
 
     // Условие для выхода из рекурсии
     if (size == 1)
-        return psi[0] * pdf[0] * dv;
+        return G[0] * dv;
 
     int j = 0;
     for (int i = 0; i < size; i = i + 2) {
         if (i + 1 == size) {
-            psi_[j] = psi[i];
-            pdf_[j] = pdf[i];
+            G_[j] = G[i];
         }else{
-            psi_[j] = psi[i] + psi[i + 1];
-            pdf_[j] = pdf[i] + pdf[i + 1];
+            G_[j] = G[i] + G[i + 1];
         }
 
         j++;
     }
 
-    return mean(psi_, pdf_, dv, j);
+    return mean(G_, dv, j);
 
 }
 
@@ -35,8 +33,7 @@ int main()
 {
     setlocale(LC_ALL, "rus");
 
-    unsigned n = 1000;
-    const double pi = 3.14;
+    unsigned n = 10000;
 
     cout << "Введите параметр T: ";
     double T;
@@ -44,8 +41,8 @@ int main()
     double sigma, dx;
 
     //dx - шаг разбиения
-    sigma = T / sqrt(2);
-    dx = 6 * sigma / n;
+    sigma = sqrt(T) / sqrt(2);
+    dx = 10 * sigma / n;
 
     //Выделяем пямять под массивы значений функций psi и f
     double *psi = new double[n];
@@ -53,18 +50,21 @@ int main()
 
     for (int i = 0; i < n; i++)
     {
-        double x = -3 * sigma + i * dx;
+        double x = -5 * sigma + i * dx;
         psi[i] = fabs(x);
-        pdf[i] = exp(-x * x / T) / sqrt(pi * T);
+        pdf[i] = exp(-x * x / T) / sqrt(M_PI * T);
     }
 
+    //G - произведение функций G := psi * f
+    double G[n];
     for (int i = 0; i < n; i++)
     {
-        cout << psi[i] <<'\t' << pdf[i]<< endl;
+        G[i] = pdf[i] * psi [i];
     }
 
+
     //Рекурсивно выводим сумму psi[i] * pdf[i] * dv
-    cout << setprecision(20)  << mean(psi, pdf, dx, n) << "---------------" << endl;
+    cout << setprecision(20)  << mean(G, dx, n) << endl;
     delete[] psi;
     delete[] pdf;
 
@@ -72,7 +72,9 @@ int main()
     double I = 0;
     for (int i = 0; i < n; i++)
     {
-        I = I + psi[i] * pdf[i] * dx;
+        I += psi[i] * pdf[i] * dx;
     }
     cout << setprecision(20) << I;
+
+    return 0;
 }

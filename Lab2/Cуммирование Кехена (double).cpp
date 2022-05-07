@@ -32,7 +32,7 @@ int main()
     double sigma, dx;
 
     //dx - шаг разбиения
-    sigma = T / sqrt(2);
+    sigma = sqrt(T) / sqrt(2);
     dx = 6 * sigma / n;
 
     //Выделяем пямять под массивы значений функций psi и f

@@ -30,8 +30,8 @@ int main() {
 
     setlocale(LC_ALL, "rus");
 
-    int n = 12, result = 0;
-    int an_array[n]{1,2,3,4,5,6,7,8,9,10,11,12};
+    int n = 11, result = 0;
+    int an_array[n]{1,2,3,4,5,6,7,8,9,10,11};
     result = foo(an_array, n);
 
     cout << result << endl;

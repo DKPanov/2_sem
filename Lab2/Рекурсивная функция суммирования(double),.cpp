@@ -30,7 +30,7 @@ int main()
     double sigma, dx;
 
     //dx - шаг разбиения
-    sigma = T / sqrt(2);
+    sigma = sqrt(T) / sqrt(2);
     dx = 6 * sigma / n;
 
     //Выделяем пямять под массивы значений функций psi и f
@@ -58,7 +58,7 @@ int main()
     double I = 0;
     for (int i = 0; i < n; i++)
     {
-        I = I + psi[i] * pdf[i] * dx;
+        I += psi[i] * pdf[i] * dx;
     }
     cout << setprecision(20) << I;
 }

@@ -4,22 +4,36 @@
 
 using namespace std;
 
-double mean(double psi[], double pdf[], double const dv, unsigned size)
-{
-    double sum = 0.0;
-    for (int i = 0; i < size; i++)
-    {
-        sum = fma(psi[i], pdf[i] * dv, sum);
+double mean(double psi[], double pdf[], double const dv, unsigned size) {
+
+    double psi_[size];
+    double pdf_[size];
+
+    // Условие для выхода из рекурсии
+    if (size == 1)
+        return psi[0] * pdf[0] * dv;
+
+    int j = 0;
+    for (int i = 0; i < size; i = i + 2) {
+        if (i + 1 == size) {
+            G_[j] = G[i];
+        }else{
+            G_[j] = G[i] + G[i + 1];
+        }
+
+        j++;
     }
-    return sum;
+
+    return mean(G_, dv, j);
+
 }
+
 
 int main()
 {
     setlocale(LC_ALL, "rus");
 
-    unsigned n = 100000;
-    const double pi = 3.14;
+    unsigned n = 10000;
 
     cout << "Введите параметр T: ";
     double T;
@@ -27,7 +41,7 @@ int main()
     double sigma, dx;
 
     //dx - шаг разбиения
-    sigma = T / sqrt(2);
+    sigma = sqrt(T) / sqrt(2);
     dx = 10 * sigma / n;
 
     //Выделяем пямять под массивы значений функций psi и f
@@ -41,24 +55,19 @@ int main()
         pdf[i] = exp(-x * x / T) / sqrt(M_PI * T);
     }
 
-//    for (int i = 0; i < n; i++)
-//    {
-//        cout << psi[i] <<'\t' << pdf[i]<< endl;
-//    }
-
 
     //Рекурсивно выводим сумму psi[i] * pdf[i] * dv
-    cout << setprecision(20) << mean(psi, pdf, dx, n) << endl;
+    cout << setprecision(20)  << mean(psi[], pdf[], dx, n) << endl;
     delete[] psi;
     delete[] pdf;
-
-    cout << sqrt(T/M_PI) << endl;;
 
     //Проверяем результат вычислением интеграла с помощью цикла
     double I = 0;
     for (int i = 0; i < n; i++)
     {
-        I = I + psi[i] * pdf[i] * dx;
+        I += psi[i] * pdf[i] * dx;
     }
-    cout << I;
+    cout << setprecision(20) << I;
+
+    return 0;
 }
