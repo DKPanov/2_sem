@@ -10,12 +10,13 @@ int main()
     cin >> x;
 
     while (x != 0) {
-        if (x == maximum){
-            ++k;
-        }
-        else if (x > maximum) {
+        if (x > maximum) {
             maximum = x;
             k = 1;
+        }
+        else if (x == maximum){
+            k++;
+            cout << k << " ";
         }
         cin >> x;
     }
